@@ -8,7 +8,7 @@ import glob
 BOLD_TEXT='\033[1m'
 
 @click.command()
-@click.option('-p', '--prefix', 'prefix', help='Prefix of your files')
+@click.option('-p', '--prefix', 'prefix', help='Prefix of your files', required=True)
 @click.version_option(version='0.0.1')
 def main(prefix):
     '''
