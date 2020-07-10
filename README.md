@@ -1,5 +1,5 @@
 # fulk
-A simple command-line tool to bulk rename all the files in your current folder.
+A simple command line tool for bulk renaming all files in your current folder.
 
 <img src="/demo.gif">
 
