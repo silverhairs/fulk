@@ -2,13 +2,13 @@
 
 import click
 import os
-from click_spinner import spinner
+import time
 
 BOLD_TEXT = "\033[1m"
 
 
 @click.command()
-@click.option("-p", "--prefix", "prefix", help="Prefix of your files", required=True)
+@click.option("--prefix", "-p", help="Prefix of your files", prompt=True, required=True)
 @click.version_option(version="0.0.1")
 def main(prefix):
     """A tool to rename all the files contained in a folder with the same convention."""
@@ -21,11 +21,17 @@ def main(prefix):
             for count, f in enumerate(files):
                 filename, ext = os.path.splitext(f"{os.getcwd()}/{f}")
                 src = f"{os.getcwd()}/{f}"
-                dst = f"{os.getcwd()}/{prefix}_0{count}{ext}"
+                new_f = f"{prefix}_0{count}{ext}"
+                dst = f"{os.getcwd()}/{new_f}"
 
-                with spinner():
-                    os.rename(src=src, dst=dst)
-            click.secho(f"{BOLD_TEXT}{count+1} files renamed", fg="blue")
+                time.sleep(
+                    # just to make it print smoother and look cool 😎️
+                    # //TODO: When you have >= 1000 files I'd suggest to remove this function
+                    0.001
+                )
+                os.rename(src=src, dst=dst)
+                click.secho(f"{BOLD_TEXT}{f}  ==>  {new_f}")
+            click.secho(f"\n{BOLD_TEXT}⚡️⚡️ {count+1} files renamed ⚡️⚡️", fg="blue")
 
         except Exception as e:
             click.secho(f"{BOLD_TEXT}{repr(e)}", fg="red")
